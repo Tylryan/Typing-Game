@@ -1,11 +1,13 @@
 #!/usr/bin/python
 
 import pandas as pd
-from os import system
+import os
 from datetime import date
 import statistics
 import sys
 
+#TODO Create a function that checks the current operating system and clears their screen
+#TODO Make this program work on Windows
 class Game:
     def __init__(self):
         self._successful = []
@@ -66,16 +68,24 @@ class Game:
                     print("Something went wrong with that entry")
                     pass
         elif len(ui_list) == 2:
-            wpm, success = int(ui_list[0]), ui_list[1]
-            if "n" == success:
-                self.add_to_unsuccessful_list(wpm)
+            one, two = ui_list[0], ui_list[1]
+            if "n" == two:
+                self.add_to_unsuccessful_list(int(one))
                 self.printInputs()
+            if ("rm" == one) and ("-sl" == two ) or ("-ls" == two):
+                self.removeEntry("s", 0)
+
+            elif ("rm" == one) and ("-ul" == two) or ("-lu" == two):
+                self.removeEntry("u", 0)
+
         elif len(ui_list) == 3:
+            one, two, three = ui_list[0], ui_list[1], ui_list[2]
             # This seems like it would be a faster way to remove something.
             # The other one stays, because it walks you through it.
-            if "rm" == ui_list[0]:
+
+            if "rm" == one:
                 try:
-                    chosen_list, index = ui_list[1], int(ui_list[2])
+                    chosen_list, index = two, int(three)
                     self.removeEntry(chosen_list, index)
                 except Exception as e:
                     print("\nError Removing that entry. Try again.")
@@ -134,7 +144,7 @@ class Game:
             print(f"Not Successful: {self._unsuccessfull}\n")
 
     def clearScreen(self):
-        return system("clear")
+        return os.system("cls" if os.name == "nt" else "clear")
 
     def removeEntry(self, which_list, index):
         try:

@@ -33,11 +33,12 @@ if __name__ == '__main__':
     # Check if there have been any previous games. returns 0 (success) or 2 (failed)
     previous_games = csv_class.readPreviousGameData()
     cont = True
-    max_streak = input("What was your max streak?: ")
-    game.setMaxStreak(max_streak)
 
     n_rounds = input("How many rounds were in your game?: Default = 5: ")
     game.setRounds(n_rounds)
+
+    max_streak = input("What was your max streak?: ")
+    game.setMaxStreak(max_streak)
     print("""
 (h) Help
 (s) Show Score
